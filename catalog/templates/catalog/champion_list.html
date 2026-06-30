@@ -15,6 +15,14 @@ Champions
 </h1>
 
 
+<a
+    href="{% url 'champion-create' %}"
+    class="btn btn-success mb-4"
+>
+    Add champion
+</a>
+
+
 
 <form
     method="get"
@@ -193,17 +201,13 @@ Champions
 
 
 <h3>
-
 {{ champion.name }}
-
 </h3>
 
 
 
 <p>
-
 {{ champion.title }}
-
 </p>
 
 

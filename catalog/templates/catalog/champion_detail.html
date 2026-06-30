@@ -15,16 +15,35 @@
 
 
 
+<div class="mb-4">
+
+
 <a
-href="{% url 'champion-list' %}"
-class="btn btn-outline-warning mb-4"
+    href="{% url 'champion-list' %}"
+    class="btn btn-outline-warning"
 >
-
-<i class="bi bi-arrow-left"></i>
-
-Back
-
+    <i class="bi bi-arrow-left"></i>
+    Back
 </a>
+
+
+<a
+    href="{% url 'champion-update' champion.id %}"
+    class="btn btn-primary"
+>
+    Edit
+</a>
+
+
+<a
+    href="{% url 'champion-delete' champion.id %}"
+    class="btn btn-danger"
+>
+    Delete
+</a>
+
+
+</div>
 
 
 
@@ -40,16 +59,13 @@ Back
 
 <img
 
-src="{{ champion.image.url }}"
+    src="{{ champion.image.url }}"
 
-class="champion-detail-image"
+    class="champion-detail-image"
 
-alt="{{ champion.name }}"
+    alt="{{ champion.name }}"
 
-style="
---image-position:
-{{ champion.image_position|default:'center center' }};
-"
+    style="--image-position: {{ champion.image_position|default:'center center' }};"
 
 >
 
@@ -120,11 +136,9 @@ Difficulty
 
 <div
 
-class="difficulty-progress"
+    class="difficulty-progress"
 
-style="
-width:calc({{ champion.difficulty }} * 10%);
-"
+    style="width:calc({{ champion.difficulty }} * 10%);"
 
 >
 
@@ -198,11 +212,11 @@ Roles
 
 <img
 
-src="{{ role.image.url }}"
+    src="{{ role.image.url }}"
 
-class="role-icon"
+    class="role-icon"
 
-alt="{{ role.name }}"
+    alt="{{ role.name }}"
 
 >
 
