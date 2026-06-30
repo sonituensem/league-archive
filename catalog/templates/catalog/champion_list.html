@@ -1,0 +1,116 @@
+{% extends "catalog/base.html" %}
+
+
+{% block title %}
+Champions
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<h1 class="mb-4">
+    Champions
+</h1>
+
+
+
+<div class="row">
+
+
+
+{% for champion in champions %}
+
+
+
+<div class="col-lg-4 col-md-6 mb-4">
+
+
+
+<a
+href="{% url 'champion-detail' champion.id %}"
+class="text-decoration-none"
+>
+
+
+
+<div class="champion-card">
+
+
+
+{% if champion.image %}
+
+
+
+<img
+src="{{ champion.image.url }}"
+class="card-img-top"
+alt="{{ champion.name }}"
+style="object-position: {{ champion.image_position|default:'center center' }};"
+>
+
+
+
+{% endif %}
+
+
+
+
+
+<div class="champion-overlay">
+
+
+
+<h3>
+
+{{ champion.name }}
+
+</h3>
+
+
+
+<p>
+
+{{ champion.title }}
+
+</p>
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+</a>
+
+
+
+
+</div>
+
+
+
+{% empty %}
+
+
+<p>
+No champions found.
+</p>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+{% endblock %}

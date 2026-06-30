@@ -1,0 +1,265 @@
+{% extends "catalog/base.html" %}
+
+
+
+{% block title %}
+
+{{ champion.name }}
+
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+
+<a
+href="{% url 'champion-list' %}"
+class="btn btn-outline-warning mb-4"
+>
+
+<i class="bi bi-arrow-left"></i>
+
+Back
+
+</a>
+
+
+
+
+
+<div class="champion-hero">
+
+
+
+{% if champion.image %}
+
+
+
+<img
+
+src="{{ champion.image.url }}"
+
+class="champion-detail-image"
+
+alt="{{ champion.name }}"
+
+style="
+--image-position:
+{{ champion.image_position|default:'center center' }};
+"
+
+>
+
+
+
+{% endif %}
+
+
+
+
+
+<div class="champion-hero-overlay">
+
+
+<h1>
+
+{{ champion.name }}
+
+</h1>
+
+
+<h3>
+
+{{ champion.title }}
+
+</h3>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<div class="row text-center mt-5">
+
+
+
+<div class="col-md-4">
+
+<h5>
+Region
+</h5>
+
+<p>
+{{ champion.region.name }}
+</p>
+
+</div>
+
+
+
+
+
+<div class="col-md-4">
+
+<h5>
+Difficulty
+</h5>
+
+
+<div class="difficulty-bar">
+
+
+<div
+
+class="difficulty-progress"
+
+style="
+width:calc({{ champion.difficulty }} * 10%);
+"
+
+>
+
+</div>
+
+
+</div>
+
+
+<p class="mt-2">
+
+{{ champion.difficulty }}/10
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="col-md-4">
+
+
+<h5>
+Release
+</h5>
+
+
+<p>
+{{ champion.release_date }}
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<hr class="my-5">
+
+
+
+
+
+<h2 class="text-center">
+
+Roles
+
+</h2>
+
+
+
+
+<div class="text-center">
+
+
+{% for role in champion.roles.all %}
+
+
+<div class="role-item">
+
+
+{% if role.image %}
+
+<img
+
+src="{{ role.image.url }}"
+
+class="role-icon"
+
+alt="{{ role.name }}"
+
+>
+
+{% endif %}
+
+
+<span>
+
+{{ role.name }}
+
+</span>
+
+
+</div>
+
+
+{% empty %}
+
+
+<p>
+No roles.
+</p>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+
+
+
+<hr class="my-5">
+
+
+
+
+
+<h2 class="text-center">
+
+About
+
+</h2>
+
+
+
+<p class="champion-description">
+
+{{ champion.description }}
+
+</p>
+
+
+
+
+
+{% endblock %}

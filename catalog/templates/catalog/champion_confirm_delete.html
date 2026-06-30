@@ -1,0 +1,39 @@
+{% extends "catalog/base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h1>
+        Delete champion
+    </h1>
+
+    <p>
+        Are you sure you want to delete
+        <strong>{{ object.name }}</strong>?
+    </p>
+
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <button
+            type="submit"
+            class="btn btn-danger"
+        >
+            Delete
+        </button>
+
+        <a
+            href="{% url 'champion-detail' object.pk %}"
+            class="btn btn-secondary"
+        >
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}
