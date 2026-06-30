@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -15,6 +16,20 @@ class ChampionListView(ListView):
     model = Champion
     template_name = "catalog/champion_list.html"
     context_object_name = "champions"
+    paginate_by = 12
+
+    def get_queryset(self):
+        queryset = Champion.objects.all()
+
+        query = self.request.GET.get("query")
+
+        if query:
+            queryset = queryset.filter(
+                Q(name__icontains=query)
+                | Q(title__icontains=query)
+            )
+
+        return queryset
 
 
 class ChampionDetailView(DetailView):

@@ -15,6 +15,34 @@ Champions
 </h1>
 
 
+<form
+    method="get"
+    class="mb-4"
+>
+
+    <div class="input-group">
+
+        <input
+            type="text"
+            name="query"
+            class="form-control"
+            placeholder="Search champion..."
+            value="{{ request.GET.query }}"
+        >
+
+
+        <button
+            type="submit"
+            class="btn btn-primary"
+        >
+            Search
+        </button>
+
+    </div>
+
+</form>
+
+
 
 <div class="row">
 
@@ -110,6 +138,64 @@ No champions found.
 
 
 </div>
+
+
+
+{% if is_paginated %}
+
+<nav>
+
+    <ul class="pagination justify-content-center">
+
+
+        {% if page_obj.has_previous %}
+
+        <li class="page-item">
+
+            <a
+                class="page-link"
+                href="?page={{ page_obj.previous_page_number }}&query={{ request.GET.query }}"
+            >
+                Previous
+            </a>
+
+        </li>
+
+        {% endif %}
+
+
+
+        <li class="page-item active">
+
+            <span class="page-link">
+                {{ page_obj.number }}
+            </span>
+
+        </li>
+
+
+
+        {% if page_obj.has_next %}
+
+        <li class="page-item">
+
+            <a
+                class="page-link"
+                href="?page={{ page_obj.next_page_number }}&query={{ request.GET.query }}"
+            >
+                Next
+            </a>
+
+        </li>
+
+        {% endif %}
+
+
+    </ul>
+
+</nav>
+
+{% endif %}
 
 
 
