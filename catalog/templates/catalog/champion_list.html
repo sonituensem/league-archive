@@ -15,12 +15,15 @@ Champions
 </h1>
 
 
+
 <form
     method="get"
     class="mb-4"
 >
 
-    <div class="input-group">
+
+    <div class="input-group mb-3">
+
 
         <input
             type="text"
@@ -38,9 +41,108 @@ Champions
             Search
         </button>
 
+
     </div>
 
+
+
+    <div class="row g-3">
+
+
+        <div class="col-md-5">
+
+            <select
+                name="region"
+                class="form-select"
+            >
+
+                <option value="">
+                    All regions
+                </option>
+
+
+                {% for region in regions %}
+
+                <option
+                    value="{{ region.id }}"
+                    {% if request.GET.region == region.id|stringformat:"s" %}
+                    selected
+                    {% endif %}
+                >
+
+                    {{ region.name }}
+
+                </option>
+
+                {% endfor %}
+
+
+            </select>
+
+
+        </div>
+
+
+
+
+        <div class="col-md-5">
+
+
+            <select
+                name="role"
+                class="form-select"
+            >
+
+                <option value="">
+                    All roles
+                </option>
+
+
+                {% for role in roles %}
+
+                <option
+                    value="{{ role.id }}"
+                    {% if request.GET.role == role.id|stringformat:"s" %}
+                    selected
+                    {% endif %}
+                >
+
+                    {{ role.name }}
+
+                </option>
+
+
+                {% endfor %}
+
+
+            </select>
+
+
+        </div>
+
+
+
+
+        <div class="col-md-2">
+
+
+            <button
+                type="submit"
+                class="btn btn-success w-100"
+            >
+                Filter
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
 </form>
+
+
 
 
 
@@ -57,8 +159,8 @@ Champions
 
 
 <a
-href="{% url 'champion-detail' champion.id %}"
-class="text-decoration-none"
+    href="{% url 'champion-detail' champion.id %}"
+    class="text-decoration-none"
 >
 
 
@@ -72,10 +174,10 @@ class="text-decoration-none"
 
 
 <img
-src="{{ champion.image.url }}"
-class="card-img-top"
-alt="{{ champion.name }}"
-style="object-position: {{ champion.image_position|default:'center center' }};"
+    src="{{ champion.image.url }}"
+    class="card-img-top"
+    alt="{{ champion.name }}"
+    style="object-position: {{ champion.image_position|default:'center center' }};"
 >
 
 
@@ -129,7 +231,7 @@ style="object-position: {{ champion.image_position|default:'center center' }};"
 
 
 <p>
-No champions found.
+    No champions found.
 </p>
 
 
@@ -141,61 +243,92 @@ No champions found.
 
 
 
+
+
 {% if is_paginated %}
+
 
 <nav>
 
-    <ul class="pagination justify-content-center">
 
-
-        {% if page_obj.has_previous %}
-
-        <li class="page-item">
-
-            <a
-                class="page-link"
-                href="?page={{ page_obj.previous_page_number }}&query={{ request.GET.query }}"
-            >
-                Previous
-            </a>
-
-        </li>
-
-        {% endif %}
+<ul class="pagination justify-content-center">
 
 
 
-        <li class="page-item active">
-
-            <span class="page-link">
-                {{ page_obj.number }}
-            </span>
-
-        </li>
+{% if page_obj.has_previous %}
 
 
-
-        {% if page_obj.has_next %}
-
-        <li class="page-item">
-
-            <a
-                class="page-link"
-                href="?page={{ page_obj.next_page_number }}&query={{ request.GET.query }}"
-            >
-                Next
-            </a>
-
-        </li>
-
-        {% endif %}
+<li class="page-item">
 
 
-    </ul>
+<a
+    class="page-link"
+    href="?page={{ page_obj.previous_page_number }}&query={{ request.GET.query }}&region={{ request.GET.region }}&role={{ request.GET.role }}"
+>
+
+    Previous
+
+</a>
+
+
+</li>
+
+
+{% endif %}
+
+
+
+
+
+<li class="page-item active">
+
+
+<span class="page-link">
+
+{{ page_obj.number }}
+
+</span>
+
+
+</li>
+
+
+
+
+
+{% if page_obj.has_next %}
+
+
+<li class="page-item">
+
+
+<a
+    class="page-link"
+    href="?page={{ page_obj.next_page_number }}&query={{ request.GET.query }}&region={{ request.GET.region }}&role={{ request.GET.role }}"
+>
+
+    Next
+
+</a>
+
+
+</li>
+
+
+{% endif %}
+
+
+
+
+</ul>
+
 
 </nav>
 
+
 {% endif %}
+
+
 
 
 

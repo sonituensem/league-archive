@@ -9,7 +9,7 @@ from django.views.generic import (
 )
 
 from catalog.forms import ChampionForm
-from catalog.models import Champion
+from catalog.models import Champion, Region, Role
 
 
 class ChampionListView(ListView):
@@ -22,6 +22,8 @@ class ChampionListView(ListView):
         queryset = Champion.objects.all()
 
         query = self.request.GET.get("query")
+        region = self.request.GET.get("region")
+        role = self.request.GET.get("role")
 
         if query:
             queryset = queryset.filter(
@@ -29,7 +31,25 @@ class ChampionListView(ListView):
                 | Q(title__icontains=query)
             )
 
-        return queryset
+        if region:
+            queryset = queryset.filter(
+                region__id=region
+            )
+
+        if role:
+            queryset = queryset.filter(
+                roles__id=role
+            )
+
+        return queryset.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["regions"] = Region.objects.all()
+        context["roles"] = Role.objects.all()
+
+        return context
 
 
 class ChampionDetailView(DetailView):
