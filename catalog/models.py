@@ -10,21 +10,47 @@ class User(AbstractUser):
 class Region(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    
-    def __str__(self):
+
+    def __str__(self) -> str:
         return self.name
-    
+
+
 class Role(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    
-    def __str__(self):
+
+    image = models.ImageField(
+        upload_to="roles/",
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self) -> str:
         return self.name
-    
+
+
 class Champion(models.Model):
     name = models.CharField(max_length=100)
-    title = models.CharField(max_length=150)
+
+    title = models.CharField(
+        max_length=150,
+    )
+
     description = models.TextField()
+
+
+    image = models.ImageField(
+        upload_to="champions/",
+        null=True,
+        blank=True,
+    )
+
+
+    image_position = models.CharField(
+        max_length=50,
+        default="center center",
+    )
+
 
     difficulty = models.PositiveIntegerField(
         validators=[
@@ -34,7 +60,9 @@ class Champion(models.Model):
         default=1,
     )
 
-    release_year = models.PositiveIntegerField()
+
+    release_date = models.DateField()
+
 
     region = models.ForeignKey(
         Region,
@@ -42,24 +70,38 @@ class Champion(models.Model):
         related_name="champions",
     )
 
+
     roles = models.ManyToManyField(
         Role,
         related_name="champions",
     )
 
+
+    class Meta:
+        ordering = ["name"]
+
+
     def __str__(self) -> str:
         return self.name
-    
-class Skin(models.Model):
-    name = models.CharField(max_length=150)
 
-    release_year = models.PositiveIntegerField()
+
+
+class Skin(models.Model):
+
+    name = models.CharField(
+        max_length=150,
+    )
+
+
+    release_date = models.DateField()
+
 
     champion = models.ForeignKey(
         Champion,
         on_delete=models.CASCADE,
         related_name="skins",
     )
+
 
     def __str__(self) -> str:
         return self.name
