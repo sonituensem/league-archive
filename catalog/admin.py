@@ -6,23 +6,18 @@ from catalog.models import (
     Champion,
     Region,
     Role,
-    Skin,
     User,
 )
-
 
 
 class ChampionAdminForm(forms.ModelForm):
 
     class Meta:
-
         model = Champion
 
         fields = "__all__"
 
-
         widgets = {
-
             "difficulty": forms.NumberInput(
                 attrs={
                     "min": 1,
@@ -30,37 +25,43 @@ class ChampionAdminForm(forms.ModelForm):
                 }
             ),
 
-
             "release_date": forms.DateInput(
                 attrs={
                     "type": "date",
                 }
             ),
-
         }
-
 
 
     def clean_difficulty(self):
 
         difficulty = self.cleaned_data["difficulty"]
 
-
         if not 1 <= difficulty <= 10:
-
             raise forms.ValidationError(
                 "Difficulty must be between 1 and 10."
             )
-
 
         return difficulty
 
 
 
 
+
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
-    pass
+
+    list_display = (
+        "username",
+        "email",
+        "is_staff",
+        "is_active",
+    )
+
+    search_fields = (
+        "username",
+        "email",
+    )
 
 
 
@@ -72,7 +73,6 @@ class RegionAdmin(admin.ModelAdmin):
     list_display = (
         "name",
     )
-
 
     search_fields = (
         "name",
@@ -87,13 +87,24 @@ class RoleAdmin(admin.ModelAdmin):
 
     list_display = (
         "name",
-        "image",
+        "image_preview",
     )
-
 
     search_fields = (
         "name",
     )
+
+
+    def image_preview(self, obj):
+
+        if obj.image:
+
+            return "✓"
+
+        return "-"
+
+
+    image_preview.short_description = "Image"
 
 
 
@@ -111,6 +122,7 @@ class ChampionAdmin(admin.ModelAdmin):
         "region",
         "difficulty",
         "release_date",
+        "roles_count",
     )
 
 
@@ -133,20 +145,20 @@ class ChampionAdmin(admin.ModelAdmin):
     )
 
 
-
-
-
-@admin.register(Skin)
-class SkinAdmin(admin.ModelAdmin):
-
-    list_display = (
+    ordering = (
         "name",
-        "champion",
-        "release_date",
     )
 
 
-    search_fields = (
-        "name",
-        "champion__name",
+    readonly_fields = (
+        "roles_count",
     )
+
+
+    def roles_count(self, obj):
+
+        return obj.roles.count()
+
+
+    roles_count.short_description = "Roles"
+

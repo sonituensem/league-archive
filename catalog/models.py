@@ -85,23 +85,3 @@ class Champion(models.Model):
         return self.name
 
 
-
-class Skin(models.Model):
-
-    name = models.CharField(
-        max_length=150,
-    )
-
-
-    release_date = models.DateField()
-
-
-    champion = models.ForeignKey(
-        Champion,
-        on_delete=models.CASCADE,
-        related_name="skins",
-    )
-
-
-    def __str__(self) -> str:
-        return self.name

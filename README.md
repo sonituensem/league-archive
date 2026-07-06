@@ -47,14 +47,6 @@ Users can:
 - Update roles
 - Delete roles
 
-## Skin Management
-
-Users can:
-
-- View champion skins
-- Create skins
-- Update skins
-- Delete skins
 
 ## Additional Features
 

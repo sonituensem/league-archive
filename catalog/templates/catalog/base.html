@@ -41,7 +41,7 @@
 
 :root {
 
-    --gold: #c8aa6e;
+    --gold:#c8aa6e;
 
 }
 
@@ -49,7 +49,7 @@
 
 * {
 
-    box-sizing: border-box;
+    box-sizing:border-box;
 
 }
 
@@ -57,7 +57,7 @@
 
 body {
 
-    min-height: 100vh;
+    min-height:100vh;
 
     background:
         radial-gradient(
@@ -86,6 +86,7 @@ h4 {
 
 
 
+
 .navbar-brand {
 
     font-family:"Cinzel", serif;
@@ -101,8 +102,33 @@ h4 {
 
 
 
+
+.navbar .btn-warning {
+
+    background-color:var(--gold);
+
+    border-color:var(--gold);
+
+    color:#000;
+
+}
+
+
+
+.navbar .btn-warning:hover {
+
+    background-color:#ffe08a;
+
+    border-color:#ffe08a;
+
+}
+
+
+
+
+
 /*
-    LIST CARDS
+    CHAMPION CARDS
 */
 
 
@@ -140,14 +166,11 @@ h4 {
 
 .card-img-top {
 
-
     width:100%;
 
     height:450px;
 
     object-fit:cover;
-
-    object-position:center center;
 
     transition:.5s;
 
@@ -167,22 +190,15 @@ h4 {
 
 .champion-overlay {
 
-
     position:absolute;
 
     bottom:0;
 
-    left:0;
-
     width:100%;
 
-
-    padding:
-        80px 20px 30px;
-
+    padding:80px 20px 30px;
 
     text-align:center;
-
 
     background:
         linear-gradient(
@@ -214,10 +230,8 @@ h4 {
 
 
 
-
-
 /*
- DETAIL
+    DETAIL
 */
 
 
@@ -235,7 +249,6 @@ h4 {
 
 .champion-detail-image {
 
-
     width:100%;
 
     height:650px;
@@ -249,8 +262,8 @@ h4 {
 
 
 
-.champion-hero-overlay {
 
+.champion-hero-overlay {
 
     position:absolute;
 
@@ -258,12 +271,9 @@ h4 {
 
     width:100%;
 
-    padding:
-        120px 30px 50px;
-
+    padding:120px 30px 50px;
 
     text-align:center;
-
 
     background:
         linear-gradient(
@@ -276,7 +286,6 @@ h4 {
 
 
 .champion-hero-overlay h1 {
-
 
     font-size:70px;
 
@@ -297,54 +306,135 @@ h4 {
 
 
 
-
-
 /*
- DIFFICULTY
+    FORMS
 */
 
 
-.difficulty-bar {
+.champion-form-container {
 
-    width:100%;
+    max-width:900px;
 
-    height:12px;
+    margin:40px auto;
 
-    background:#333;
-
-    border-radius:10px;
-
-    overflow:hidden;
-
-}
-
-
-
-.difficulty-progress {
-
-
-    height:100%;
-
+    padding:40px;
 
     background:
-        linear-gradient(
-            90deg,
-            #c8aa6e,
-            #ffe08a
-        );
+        rgba(0,0,0,.8);
+
+    border:
+        1px solid rgba(200,170,110,.5);
+
+    border-radius:20px;
 
 }
+
+
+
+.champion-form-container label {
+
+    color:var(--gold);
+
+    font-family:"Cinzel", serif;
+
+    font-weight:700;
+
+}
+
+
+
+
+
+.form-control,
+.form-select,
+input,
+textarea,
+select {
+
+
+    background-color:#111 !important;
+
+    color:white !important;
+
+    border:
+        1px solid rgba(200,170,110,.4) !important;
+
+    border-radius:10px !important;
+
+    padding:12px !important;
+
+}
+
+
+
+.form-control::placeholder {
+
+    color:#777;
+
+}
+
+
+
+.form-control:focus,
+.form-select:focus,
+input:focus,
+textarea:focus,
+select:focus {
+
+
+    background-color:#111 !important;
+
+    color:white !important;
+
+    border-color:var(--gold) !important;
+
+    box-shadow:
+        0 0 15px rgba(200,170,110,.35) !important;
+
+}
+
+
+
+select option {
+
+    background:#111;
+
+    color:white;
+
+}
+
+
+
+textarea {
+
+    min-height:150px;
+
+}
+
+
+
+.champion-form-container .btn-warning {
+
+    background:var(--gold);
+
+    border-color:var(--gold);
+
+    color:#000;
+
+    font-weight:700;
+
+}
+
 
 
 
 
 /*
- ROLES
+    ROLES
 */
 
 
 .role-item {
-
 
     display:inline-flex;
 
@@ -352,18 +442,13 @@ h4 {
 
     gap:10px;
 
-
     padding:10px 20px;
-
 
     margin:5px;
 
-
     border-radius:20px;
 
-
     border:1px solid var(--gold);
-
 
     color:var(--gold);
 
@@ -372,7 +457,6 @@ h4 {
 
 
 .role-icon {
-
 
     width:35px;
 
@@ -385,53 +469,8 @@ h4 {
 
 
 
-/*
- RELATED
-*/
-
-
-.related-card {
-
-
-    overflow:hidden;
-
-    border-radius:15px;
-
-    border:
-        1px solid rgba(255,255,255,.1);
-
-    transition:.3s;
-
-}
-
-
-
-.related-card:hover {
-
-
-    transform:translateY(-5px);
-
-    border-color:var(--gold);
-
-}
-
-
-
-.related-card img {
-
-
-    width:100%;
-
-    height:250px;
-
-    object-fit:cover;
-
-}
-
-
 
 .champion-description {
-
 
     max-width:900px;
 
@@ -459,26 +498,131 @@ h4 {
 <body>
 
 
+
 <nav class="navbar navbar-dark bg-black">
 
-    <div class="container">
 
-        <a
-            class="navbar-brand"
-            href="/"
-        >
+<div class="container">
 
-            League Archive
 
-        </a>
+<a
+    class="navbar-brand"
+    href="{% url 'champion-list' %}"
+>
 
-    </div>
+League Archive
+
+</a>
+
+
+
+<div class="d-flex align-items-center">
+
+
+{% if user.is_authenticated %}
+
+
+<span class="text-light me-3">
+
+{{ user.username }}
+
+</span>
+
+
+
+<form
+    method="post"
+    action="{% url 'logout' %}"
+>
+
+{% csrf_token %}
+
+
+<button
+    type="submit"
+    class="btn btn-outline-danger"
+>
+
+Logout
+
+</button>
+
+
+</form>
+
+
+
+{% else %}
+
+
+
+<a
+    href="{% url 'login' %}"
+    class="btn btn-outline-light me-2"
+>
+
+Login
+
+</a>
+
+
+
+<a
+    href="{% url 'register' %}"
+    class="btn btn-warning"
+>
+
+Register
+
+</a>
+
+
+
+{% endif %}
+
+
+
+</div>
+
+
+</div>
+
 
 </nav>
 
 
 
+
+
 <main class="container py-4">
+
+
+{% if messages %}
+
+    {% for message in messages %}
+
+        <div
+            class="alert alert-success alert-dismissible fade show"
+            role="alert"
+        >
+
+            {{ message }}
+
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+
+
+        </div>
+
+    {% endfor %}
+
+{% endif %}
+
 
 
 {% block content %}
@@ -487,6 +631,14 @@ h4 {
 
 
 </main>
+
+
+
+
+
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
 
 
 

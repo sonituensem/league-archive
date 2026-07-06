@@ -1,44 +1,61 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 
-from catalog.models import Champion
+from catalog.models import Champion, User
 
 
 class ChampionForm(forms.ModelForm):
+
     class Meta:
+
         model = Champion
 
-        fields = [
-            "name",
-            "title",
-            "description",
-            "image",
-            "image_position",
-            "difficulty",
-            "release_date",
-            "region",
-            "roles",
-        ]
+        fields = "__all__"
 
         widgets = {
-            "description": forms.Textarea(
-                attrs={
-                    "rows": 5,
-                }
-            ),
-            "release_date": forms.DateInput(
-                attrs={
-                    "type": "date",
-                }
-            ),
+
             "difficulty": forms.NumberInput(
                 attrs={
                     "min": 1,
                     "max": 10,
                 }
             ),
-            "roles": forms.SelectMultiple(
+
+            "release_date": forms.DateInput(
                 attrs={
-                    "class": "form-select",
+                    "type": "date",
                 }
             ),
+
         }
+
+
+    def clean_difficulty(self):
+
+        difficulty = self.cleaned_data["difficulty"]
+
+
+        if not 1 <= difficulty <= 10:
+
+            raise forms.ValidationError(
+                "Difficulty must be between 1 and 10."
+            )
+
+
+        return difficulty
+
+
+
+
+
+class UserRegistrationForm(UserCreationForm):
+
+    class Meta:
+
+        model = User
+
+        fields = (
+            "username",
+            "password1",
+            "password2",
+        )

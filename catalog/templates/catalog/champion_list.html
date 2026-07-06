@@ -10,17 +10,28 @@ Champions
 {% block content %}
 
 
-<h1 class="mb-4">
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+
+<h1>
     Champions
 </h1>
 
 
+{% if user.is_authenticated %}
+
 <a
     href="{% url 'champion-create' %}"
-    class="btn btn-success mb-4"
+    class="btn btn-warning"
 >
-    Add champion
+    <i class="bi bi-plus-lg"></i>
+    Add Champion
 </a>
+
+{% endif %}
+
+
+</div>
 
 
 
@@ -30,122 +41,124 @@ Champions
 >
 
 
-    <div class="input-group mb-3">
+<div class="input-group mb-3">
 
 
-        <input
-            type="text"
-            name="query"
-            class="form-control"
-            placeholder="Search champion..."
-            value="{{ request.GET.query }}"
-        >
+<input
+    type="text"
+    name="query"
+    class="form-control"
+    placeholder="Search champion..."
+    value="{{ request.GET.query }}"
+>
 
 
-        <button
-            type="submit"
-            class="btn btn-primary"
-        >
-            Search
-        </button>
+<button
+    type="submit"
+    class="btn btn-primary"
+>
+    Search
+</button>
 
 
-    </div>
-
-
-
-    <div class="row g-3">
-
-
-        <div class="col-md-5">
-
-            <select
-                name="region"
-                class="form-select"
-            >
-
-                <option value="">
-                    All regions
-                </option>
-
-
-                {% for region in regions %}
-
-                <option
-                    value="{{ region.id }}"
-                    {% if request.GET.region == region.id|stringformat:"s" %}
-                    selected
-                    {% endif %}
-                >
-
-                    {{ region.name }}
-
-                </option>
-
-                {% endfor %}
-
-
-            </select>
-
-
-        </div>
+</div>
 
 
 
-
-        <div class="col-md-5">
-
-
-            <select
-                name="role"
-                class="form-select"
-            >
-
-                <option value="">
-                    All roles
-                </option>
+<div class="row g-3">
 
 
-                {% for role in roles %}
+<div class="col-md-5">
 
-                <option
-                    value="{{ role.id }}"
-                    {% if request.GET.role == role.id|stringformat:"s" %}
-                    selected
-                    {% endif %}
-                >
-
-                    {{ role.name }}
-
-                </option>
+<select
+    name="region"
+    class="form-select"
+>
 
 
-                {% endfor %}
+<option value="">
+    All regions
+</option>
 
 
-            </select>
+{% for region in regions %}
+
+<option
+    value="{{ region.id }}"
+    {% if request.GET.region == region.id|stringformat:"s" %}
+    selected
+    {% endif %}
+>
+
+{{ region.name }}
+
+</option>
 
 
-        </div>
+{% endfor %}
+
+
+</select>
+
+</div>
 
 
 
 
-        <div class="col-md-2">
+<div class="col-md-5">
+
+<select
+    name="role"
+    class="form-select"
+>
 
 
-            <button
-                type="submit"
-                class="btn btn-success w-100"
-            >
-                Filter
-            </button>
+<option value="">
+    All roles
+</option>
 
 
-        </div>
+{% for role in roles %}
 
 
-    </div>
+<option
+    value="{{ role.id }}"
+    {% if request.GET.role == role.id|stringformat:"s" %}
+    selected
+    {% endif %}
+>
+
+{{ role.name }}
+
+</option>
+
+
+{% endfor %}
+
+
+</select>
+
+</div>
+
+
+
+
+<div class="col-md-2">
+
+
+<button
+    class="btn btn-success w-100"
+>
+
+Filter
+
+</button>
+
+
+</div>
+
+
+</div>
 
 
 </form>
@@ -157,13 +170,10 @@ Champions
 <div class="row">
 
 
-
 {% for champion in champions %}
 
 
-
 <div class="col-lg-4 col-md-6 mb-4">
-
 
 
 <a
@@ -172,38 +182,27 @@ Champions
 >
 
 
-
 <div class="champion-card">
 
 
-
 {% if champion.image %}
-
-
 
 <img
     src="{{ champion.image.url }}"
     class="card-img-top"
     alt="{{ champion.name }}"
-    style="object-position: {{ champion.image_position|default:'center center' }};"
+    style="object-position: {{ champion.image_position }};"
 >
-
-
 
 {% endif %}
 
 
 
-
-
 <div class="champion-overlay">
-
-
 
 <h3>
 {{ champion.name }}
 </h3>
-
 
 
 <p>
@@ -211,36 +210,27 @@ Champions
 </p>
 
 
-
 </div>
 
 
-
-
 </div>
-
-
 
 
 </a>
 
 
-
-
 </div>
-
 
 
 {% empty %}
 
 
 <p>
-    No champions found.
+No champions found.
 </p>
 
 
 {% endfor %}
-
 
 
 </div>
@@ -258,70 +248,47 @@ Champions
 <ul class="pagination justify-content-center">
 
 
-
 {% if page_obj.has_previous %}
-
 
 <li class="page-item">
 
-
 <a
-    class="page-link"
-    href="?page={{ page_obj.previous_page_number }}&query={{ request.GET.query }}&region={{ request.GET.region }}&role={{ request.GET.role }}"
+class="page-link"
+href="?page={{ page_obj.previous_page_number }}&query={{ request.GET.query }}&region={{ request.GET.region }}&role={{ request.GET.role }}"
 >
-
-    Previous
-
+Previous
 </a>
-
 
 </li>
 
-
 {% endif %}
-
-
 
 
 
 <li class="page-item active">
 
-
 <span class="page-link">
-
 {{ page_obj.number }}
-
 </span>
 
-
 </li>
-
-
 
 
 
 {% if page_obj.has_next %}
 
-
 <li class="page-item">
 
-
 <a
-    class="page-link"
-    href="?page={{ page_obj.next_page_number }}&query={{ request.GET.query }}&region={{ request.GET.region }}&role={{ request.GET.role }}"
+class="page-link"
+href="?page={{ page_obj.next_page_number }}&query={{ request.GET.query }}&region={{ request.GET.region }}&role={{ request.GET.role }}"
 >
-
-    Next
-
+Next
 </a>
-
 
 </li>
 
-
 {% endif %}
-
-
 
 
 </ul>
@@ -331,8 +298,6 @@ Champions
 
 
 {% endif %}
-
-
 
 
 
