@@ -42,6 +42,7 @@ class Champion(models.Model):
     image_position = models.CharField(
         max_length=50,
         default="center center",
+        blank=True,
     )
     difficulty = models.PositiveIntegerField(
         validators=[
