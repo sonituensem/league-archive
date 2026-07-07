@@ -2,21 +2,13 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from catalog.models import (
-    Champion,
-    Region,
-    Role,
-    User,
-)
+from catalog.models import Champion, Region, Role, User
 
 
 class ChampionAdminForm(forms.ModelForm):
-
     class Meta:
         model = Champion
-
         fields = "__all__"
-
         widgets = {
             "difficulty": forms.NumberInput(
                 attrs={
@@ -24,7 +16,6 @@ class ChampionAdminForm(forms.ModelForm):
                     "max": 10,
                 }
             ),
-
             "release_date": forms.DateInput(
                 attrs={
                     "type": "date",
@@ -32,9 +23,7 @@ class ChampionAdminForm(forms.ModelForm):
             ),
         }
 
-
     def clean_difficulty(self):
-
         difficulty = self.cleaned_data["difficulty"]
 
         if not 1 <= difficulty <= 10:
@@ -45,12 +34,8 @@ class ChampionAdminForm(forms.ModelForm):
         return difficulty
 
 
-
-
-
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
-
     list_display = (
         "username",
         "email",
@@ -64,12 +49,8 @@ class CustomUserAdmin(UserAdmin):
     )
 
 
-
-
-
 @admin.register(Region)
 class RegionAdmin(admin.ModelAdmin):
-
     list_display = (
         "name",
     )
@@ -79,12 +60,8 @@ class RegionAdmin(admin.ModelAdmin):
     )
 
 
-
-
-
 @admin.register(Role)
 class RoleAdmin(admin.ModelAdmin):
-
     list_display = (
         "name",
         "image_preview",
@@ -94,27 +71,18 @@ class RoleAdmin(admin.ModelAdmin):
         "name",
     )
 
-
     def image_preview(self, obj):
-
         if obj.image:
-
             return "✓"
 
         return "-"
 
-
     image_preview.short_description = "Image"
-
-
-
 
 
 @admin.register(Champion)
 class ChampionAdmin(admin.ModelAdmin):
-
     form = ChampionAdminForm
-
 
     list_display = (
         "name",
@@ -125,12 +93,10 @@ class ChampionAdmin(admin.ModelAdmin):
         "roles_count",
     )
 
-
     search_fields = (
         "name",
         "title",
     )
-
 
     list_filter = (
         "region",
@@ -139,26 +105,19 @@ class ChampionAdmin(admin.ModelAdmin):
         "release_date",
     )
 
-
     filter_horizontal = (
         "roles",
     )
-
 
     ordering = (
         "name",
     )
 
-
     readonly_fields = (
         "roles_count",
     )
 
-
     def roles_count(self, obj):
-
         return obj.roles.count()
 
-
     roles_count.short_description = "Roles"
-
