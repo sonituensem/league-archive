@@ -1,87 +1,44 @@
 # League Archive
 
-A Django web application for managing a League of Legends champions database.
+**League Archive** is a Django web application for managing and exploring a League of Legends champions database.
 
-League Archive is a portfolio project that provides a platform for managing and exploring information about League of Legends champions, their regions, roles, and skins.
+The website allows users to browse champions, view detailed information about them, search through the database, and manage champions, regions, and roles.
 
-The project is built with Django and demonstrates CRUD operations, authentication, database relationships, forms, search, pagination, and responsive web design.
+## Features
 
----
+* User registration and authentication
+* Champions catalog with search and pagination
+* Detailed champion pages
+* Create, update and delete champions
+* Create, update and delete regions
+* Create, update and delete roles
+* Django admin panel
+* Form validation
+* Responsive Bootstrap interface
+* PostgreSQL database
 
-# Features
+## Technologies
 
-## Authentication
+* Python 3.11
+* Django
+* PostgreSQL
+* HTML5
+* CSS3
+* Bootstrap 5
+* Git / GitHub
+* Render
 
-- User registration
-- User login
-- User logout
-- Custom user model based on Django `AbstractUser`
+## Demo Account
 
-## Champion Management
+You can use the following account to explore the website:
 
-Users can:
+**Username:** `demo`
+**Password:** `DemoPassword123!`
 
-- View all champions
-- View detailed champion information
-- Create champions
-- Update champions
-- Delete champions
-- Search champions
-- Browse champions with pagination
+## Repository
 
-## Region Management
+[GitHub Repository](https://github.com/sonituensem/league-archive)
 
-Users can:
+## Live Demo
 
-- View regions
-- Create regions
-- Update regions
-- Delete regions
-
-## Role Management
-
-Users can:
-
-- View champion roles
-- Create roles
-- Update roles
-- Delete roles
-
-
-## Additional Features
-
-- Django admin panel
-- Database relationships
-- Bootstrap responsive interface
-- Search functionality
-- Pagination
-- Form validation
-
----
-
-# Technologies
-
-## Backend
-
-- Python 3.11
-- Django
-
-## Database
-
-- SQLite
-
-## Frontend
-
-- HTML5
-- CSS3
-- Bootstrap
-
-## Development Tools
-
-- Git
-- GitHub
-- Draw.io
-
----
-
-# Project Structure
+[League Archive](https://league-archive.onrender.com/)
