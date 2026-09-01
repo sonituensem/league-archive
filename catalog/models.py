@@ -18,7 +18,6 @@ class Region(models.Model):
 class Role(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-
     image = models.ImageField(
         upload_to="roles/",
         null=True,
@@ -31,27 +30,20 @@ class Role(models.Model):
 
 class Champion(models.Model):
     name = models.CharField(max_length=100)
-
     title = models.CharField(
         max_length=150,
     )
-
     description = models.TextField()
-
-
     image = models.ImageField(
         upload_to="champions/",
         null=True,
         blank=True,
     )
-
-
     image_position = models.CharField(
         max_length=50,
         default="center center",
+        blank=True,
     )
-
-
     difficulty = models.PositiveIntegerField(
         validators=[
             MinValueValidator(1),
@@ -59,29 +51,19 @@ class Champion(models.Model):
         ],
         default=1,
     )
-
-
     release_date = models.DateField()
-
-
     region = models.ForeignKey(
         Region,
         on_delete=models.CASCADE,
         related_name="champions",
     )
-
-
     roles = models.ManyToManyField(
         Role,
         related_name="champions",
     )
 
-
     class Meta:
         ordering = ["name"]
 
-
     def __str__(self) -> str:
         return self.name
-
-

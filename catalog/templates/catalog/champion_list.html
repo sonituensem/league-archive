@@ -13,25 +13,26 @@ Champions
 <div class="d-flex justify-content-between align-items-center mb-4">
 
 
-<h1>
-    Champions
-</h1>
+    <h1>
+        Champions
+    </h1>
 
 
-{% if user.is_authenticated %}
+    {% if user.is_authenticated %}
 
-<a
-    href="{% url 'champion-create' %}"
-    class="btn btn-warning"
->
-    <i class="bi bi-plus-lg"></i>
-    Add Champion
-</a>
+    <a
+        href="{% url 'champion-create' %}"
+        class="btn btn-warning"
+    >
+        <i class="bi bi-plus-lg"></i>
+        Add Champion
+    </a>
 
-{% endif %}
+    {% endif %}
 
 
 </div>
+
 
 
 
@@ -41,124 +42,128 @@ Champions
 >
 
 
-<div class="input-group mb-3">
+    <div class="input-group mb-3">
 
 
-<input
-    type="text"
-    name="query"
-    class="form-control"
-    placeholder="Search champion..."
-    value="{{ request.GET.query }}"
->
+        <input
+            type="text"
+            name="query"
+            class="form-control"
+            placeholder="Search champion..."
+            value="{{ request.GET.query }}"
+        >
 
 
-<button
-    type="submit"
-    class="btn btn-primary"
->
-    Search
-</button>
+        <button
+            type="submit"
+            class="btn btn-primary"
+        >
+            Search
+        </button>
 
 
-</div>
-
-
-
-<div class="row g-3">
-
-
-<div class="col-md-5">
-
-<select
-    name="region"
-    class="form-select"
->
-
-
-<option value="">
-    All regions
-</option>
-
-
-{% for region in regions %}
-
-<option
-    value="{{ region.id }}"
-    {% if request.GET.region == region.id|stringformat:"s" %}
-    selected
-    {% endif %}
->
-
-{{ region.name }}
-
-</option>
-
-
-{% endfor %}
-
-
-</select>
-
-</div>
+    </div>
 
 
 
 
-<div class="col-md-5">
-
-<select
-    name="role"
-    class="form-select"
->
+    <div class="row g-3">
 
 
-<option value="">
-    All roles
-</option>
+        <div class="col-md-5">
 
 
-{% for role in roles %}
+            <select
+                name="region"
+                class="form-select"
+            >
 
 
-<option
-    value="{{ role.id }}"
-    {% if request.GET.role == role.id|stringformat:"s" %}
-    selected
-    {% endif %}
->
-
-{{ role.name }}
-
-</option>
+                <option value="">
+                    All regions
+                </option>
 
 
-{% endfor %}
+                {% for region in regions %}
 
 
-</select>
+                <option
+                    value="{{ region.id }}"
+                    {% if request.GET.region == region.id|stringformat:"s" %}
+                    selected
+                    {% endif %}
+                >
 
-</div>
+                    {{ region.name }}
 
-
-
-
-<div class="col-md-2">
-
-
-<button
-    class="btn btn-success w-100"
->
-
-Filter
-
-</button>
+                </option>
 
 
-</div>
+                {% endfor %}
 
 
-</div>
+            </select>
+
+
+        </div>
+
+
+
+
+        <div class="col-md-5">
+
+
+            <select
+                name="role"
+                class="form-select"
+            >
+
+
+                <option value="">
+                    All roles
+                </option>
+
+
+                {% for role in roles %}
+
+
+                <option
+                    value="{{ role.id }}"
+                    {% if request.GET.role == role.id|stringformat:"s" %}
+                    selected
+                    {% endif %}
+                >
+
+                    {{ role.name }}
+
+                </option>
+
+
+                {% endfor %}
+
+
+            </select>
+
+
+        </div>
+
+
+
+
+        <div class="col-md-2">
+
+
+            <button
+                class="btn btn-success w-100"
+            >
+                Filter
+            </button>
+
+
+        </div>
+
+
+    </div>
 
 
 </form>
@@ -176,47 +181,50 @@ Filter
 <div class="col-lg-4 col-md-6 mb-4">
 
 
-<a
-    href="{% url 'champion-detail' champion.id %}"
-    class="text-decoration-none"
->
+    <a
+        href="{% url 'champion-detail' champion.id %}"
+        class="text-decoration-none"
+    >
 
 
-<div class="champion-card">
+        <div class="champion-card">
 
 
-{% if champion.image %}
-
-<img
-    src="{{ champion.image.url }}"
-    class="card-img-top"
-    alt="{{ champion.name }}"
-    style="object-position: {{ champion.image_position }};"
->
-
-{% endif %}
+            {% if champion.image %}
 
 
-
-<div class="champion-overlay">
-
-<h3>
-{{ champion.name }}
-</h3>
-
-
-<p>
-{{ champion.title }}
-</p>
+            <img
+                src="{{ champion.image.url }}"
+                class="card-img-top"
+                alt="{{ champion.name }}"
+                style="object-position: {{ champion.image_position }};"
+            >
 
 
-</div>
+            {% endif %}
 
 
-</div>
+
+            <div class="champion-overlay">
 
 
-</a>
+                <h3>
+                    {{ champion.name }}
+                </h3>
+
+
+                <p>
+                    {{ champion.title }}
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+    </a>
 
 
 </div>
@@ -226,7 +234,7 @@ Filter
 
 
 <p>
-No champions found.
+    No champions found.
 </p>
 
 
@@ -250,43 +258,59 @@ No champions found.
 
 {% if page_obj.has_previous %}
 
+
 <li class="page-item">
 
+
 <a
-class="page-link"
-href="?page={{ page_obj.previous_page_number }}&query={{ request.GET.query }}&region={{ request.GET.region }}&role={{ request.GET.role }}"
+    class="page-link"
+    href="?page={{ page_obj.previous_page_number }}&query={{ request.GET.query }}&region={{ request.GET.region }}&role={{ request.GET.role }}"
 >
-Previous
+    Previous
 </a>
 
+
 </li>
+
 
 {% endif %}
 
 
 
+
+
 <li class="page-item active">
 
+
 <span class="page-link">
+
 {{ page_obj.number }}
+
 </span>
 
+
 </li>
+
+
 
 
 
 {% if page_obj.has_next %}
 
+
 <li class="page-item">
 
+
 <a
-class="page-link"
-href="?page={{ page_obj.next_page_number }}&query={{ request.GET.query }}&region={{ request.GET.region }}&role={{ request.GET.role }}"
+    class="page-link"
+    href="?page={{ page_obj.next_page_number }}&query={{ request.GET.query }}&region={{ request.GET.region }}&role={{ request.GET.role }}"
 >
-Next
+    Next
 </a>
 
+
 </li>
+
 
 {% endif %}
 
@@ -298,6 +322,8 @@ Next
 
 
 {% endif %}
+
+
 
 
 
