@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -11,6 +12,11 @@ from django.views.generic import (
 
 from catalog.forms import ChampionForm, UserRegistrationForm
 from catalog.models import Champion, Region, Role
+
+
+class AdminRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_staff
 
 
 class ChampionListView(ListView):
@@ -54,21 +60,21 @@ class ChampionDetailView(DetailView):
     template_name = "catalog/champion_detail.html"
 
 
-class ChampionCreateView(CreateView):
+class ChampionCreateView(LoginRequiredMixin, CreateView):
     model = Champion
     form_class = ChampionForm
     template_name = "catalog/champion_form.html"
     success_url = reverse_lazy("champion-list")
 
 
-class ChampionUpdateView(UpdateView):
+class ChampionUpdateView(AdminRequiredMixin, UpdateView):
     model = Champion
     form_class = ChampionForm
     template_name = "catalog/champion_form.html"
     success_url = reverse_lazy("champion-list")
 
 
-class ChampionDeleteView(DeleteView):
+class ChampionDeleteView(AdminRequiredMixin, DeleteView):
     model = Champion
     template_name = "catalog/champion_confirm_delete.html"
     success_url = reverse_lazy("champion-list")
@@ -77,7 +83,7 @@ class ChampionDeleteView(DeleteView):
 class RegisterView(CreateView):
     form_class = UserRegistrationForm
     template_name = "registration/register.html"
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("champion-list")
 
     def form_valid(self, form):
         response = super().form_valid(form)
